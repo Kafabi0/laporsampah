@@ -81,7 +81,7 @@ export default function Home() {
             <div className="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
               <div className="border rounded p-4 shadow-sm h-100">
                 <p>"Langkah kecil untuk perubahan besar. Terima kasih atas platform ini."</p>
-                <strong>- Siti, Mahasiswa</strong>
+                <strong>- Titid, Mahasiswa</strong>
               </div>
             </div>
             <div className="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
