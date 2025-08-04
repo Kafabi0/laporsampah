@@ -114,7 +114,7 @@ export default function Lapor() {
           <img src="/public/alert.gif" alt="Recycle" width="150" style="margin-top:10px"/>
         `,
         confirmButtonColor: "#4caf50",
-        background: "#e8f5e9", // hijau muda
+        background: "#e8f5e9", // hijau sejuk
         iconColor: "#388e3c", // hijau gelap
         timer: 3000,
         timerProgressBar: true, // tampilkan progress bar timer
