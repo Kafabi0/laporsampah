@@ -280,7 +280,7 @@ export default function Home() {
             size="large"
             color="inherit"
             component={RouterLink}
-            to="/report"
+            to="/lapor"
             sx={{
               ...btnHoverSx,
               borderWidth: 2,
