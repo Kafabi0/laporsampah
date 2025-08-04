@@ -89,7 +89,8 @@ export default function NavbarComponent() {
               fontWeight: "bold",
             }}
           >
-            🌱 Lapor Sampah
+             <img src="public/Favicon.png" alt="LOGO" style={{ width: "35px", marginRight: "10px" }} />
+             Lapor Sampah
           </Typography>
 
           {/* Menu Mobile */}
