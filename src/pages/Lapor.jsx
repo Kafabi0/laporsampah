@@ -6,7 +6,6 @@ import {
   Button,
   MenuItem,
   Box,
-  Paper,
   Divider,
   Card,
   CardContent,
@@ -18,6 +17,10 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import MapsPicker from "../components/MapsPicker";
 import LocationSearch from "../components/LocationSearch";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
 
 export default function Lapor() {
   const [formData, setFormData] = useState({
@@ -30,7 +33,6 @@ export default function Lapor() {
   const [position, setPosition] = useState(null);
   const [alamat, setAlamat] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   // Reverse geocoding
   const fetchAddress = async (lat, lng) => {
@@ -68,13 +70,29 @@ export default function Lapor() {
   // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!position) {
-      alert("Silakan pilih lokasi terlebih dahulu.");
-      return;
+      return MySwal.fire({
+        icon: "warning",
+        title: "Lokasi Belum Dipilih",
+        text: "Silakan pilih lokasi terlebih dahulu.",
+        confirmButtonColor: "#4caf50", // hijau recycle
+        backdrop: `
+          rgba(76,175,80,0.4)
+          url("https://cdn-icons-png.flaticon.com/512/565/565547.png")
+          left top
+          no-repeat
+        `,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
     }
 
     setLoading(true);
-    setSuccess(false);
 
     const dataToSend = {
       ...formData,
@@ -88,15 +106,40 @@ export default function Lapor() {
 
       console.log("Data dikirim:", dataToSend);
 
-      setSuccess(true);
-      // Reset semua
+      await MySwal.fire({
+        icon: "success",
+        title: "Laporan Berhasil!",
+        html: `
+          <p>🎉 Terima kasih atas kontribusimu untuk lingkungan bersih.</p>
+          <img src="/public/alert.gif" alt="Recycle" width="150" style="margin-top:10px"/>
+        `,
+        confirmButtonColor: "#4caf50",
+        background: "#e8f5e9", // hijau muda
+        iconColor: "#388e3c", // hijau gelap
+        timer: 3000,
+        timerProgressBar: true, // tampilkan progress bar timer
+        showConfirmButton: false,
+        showClass: {
+          popup: "animate__animated animate__zoomIn",
+        },
+        hideClass: {
+          popup: "animate__animated animate__zoomOut",
+        },
+      });
+
+      // Reset form
       setFormData({ foto: null, deskripsi: "", kategori: "" });
       setPreview(null);
       setPosition(null);
       setAlamat("");
     } catch (err) {
       console.error("Gagal:", err);
-      alert("Terjadi kesalahan saat mengirim.");
+      await MySwal.fire({
+        icon: "error",
+        title: "Gagal Mengirim",
+        text: "Terjadi kesalahan saat mengirim laporan. Silakan coba lagi.",
+        confirmButtonColor: "#d32f2f",
+      });
     } finally {
       setLoading(false);
     }
@@ -211,12 +254,6 @@ export default function Lapor() {
                 <strong>Lokasi Terpilih:</strong> {position.lat.toFixed(5)},
                 {position.lng.toFixed(5)} <br />
                 <strong>Alamat:</strong> {alamat}
-              </Alert>
-            )}
-
-            {success && (
-              <Alert severity="success">
-                🎉 Laporan berhasil dikirim! Terima kasih atas kontribusinya.
               </Alert>
             )}
 
