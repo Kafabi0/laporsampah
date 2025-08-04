@@ -6,6 +6,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'aos/dist/aos.css';
+import 'leaflet/dist/leaflet.css';
 import AOS from 'aos';  
 
 AOS.init({

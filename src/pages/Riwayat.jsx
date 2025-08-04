@@ -1,26 +1,75 @@
-import React from 'react';
+import { useEffect, useState } from "react";
+import { Container, Card, Badge } from "react-bootstrap";
 
-function Riwayat() {
-  const laporan = JSON.parse(localStorage.getItem('laporan')) || [];
+// Fungsi helper untuk memberi warna badge
+const getStatusVariant = (status) => {
+  switch (status) {
+    case "diterima":
+      return "secondary";
+    case "proses":
+      return "warning";
+    case "selesai":
+      return "success";
+    default:
+      return "dark";
+  }
+};
+
+export default function Riwayat() {
+  const [laporan, setLaporan] = useState([]);
+
+  // Simulasi fetch data
+  useEffect(() => {
+    // Nanti diganti dengan axios.get('/api/laporan/user')
+    const dummy = [
+      {
+        id: 1,
+        deskripsi: "Sampah menumpuk di belakang pasar",
+        kategori: "pasar",
+        status: "proses",
+        tanggapan: "Petugas sedang menuju lokasi",
+        tanggal: "2025-08-03",
+        lokasi: "-6.902, 107.618",
+      },
+      {
+        id: 2,
+        deskripsi: "Sampah rumah tangga belum diangkut",
+        kategori: "rumah",
+        status: "selesai",
+        tanggapan: "Sudah dibersihkan pagi tadi",
+        tanggal: "2025-08-01",
+        lokasi: "-6.904, 107.610",
+      },
+    ];
+    setLaporan(dummy);
+  }, []);
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">Riwayat Laporan</h2>
+    <Container>
+      <h2 className="mb-4">Riwayat Laporan Anda</h2>
       {laporan.length === 0 ? (
         <p>Belum ada laporan.</p>
       ) : (
-        laporan.map((item, index) => (
-          <div key={index} className="mb-4 p-4 border rounded bg-white">
-            {item.foto && <img src={item.foto} alt="lokasi" className="w-full h-48 object-cover mb-2" />}
-            <p><strong>Lokasi:</strong> {item.lokasi}</p>
-            <p><strong>Catatan:</strong> {item.catatan}</p>
-            <p><strong>Status:</strong> {item.status}</p>
-            <p><strong>Waktu:</strong> {item.waktu}</p>
-          </div>
+        laporan.map((item) => (
+          <Card key={item.id} className="mb-3 shadow-sm">
+            <Card.Body>
+              <Card.Title>{item.deskripsi}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                Kategori: {item.kategori} | Tanggal: {item.tanggal}
+              </Card.Subtitle>
+              <p>Lokasi: {item.lokasi}</p>
+              <Badge bg={getStatusVariant(item.status)} className="mb-2">
+                Status: {item.status}
+              </Badge>
+              {item.tanggapan && (
+                <div className="mt-2 text-success">
+                  <strong>Tanggapan Admin:</strong> {item.tanggapan}
+                </div>
+              )}
+            </Card.Body>
+          </Card>
         ))
       )}
-    </div>
+    </Container>
   );
 }
-
-export default Riwayat;
