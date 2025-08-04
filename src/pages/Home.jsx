@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Button,
-  Paper,
-} from "@mui/material";
+import { Box, Container, Typography, Grid, Button, Paper } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HistoryIcon from "@mui/icons-material/History";
@@ -14,13 +7,14 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link as RouterLink } from "react-router-dom";
 import BackToTop from "../components/BackToTop";
+import ModernButton from "../components/ModernButton";
 
 export default function Home() {
   useEffect(() => {
     AOS.init({ duration: 1000, easing: "ease-in-out", once: true });
   }, []);
 
-  // Styles for card hover effect
+  // css kartu hover effect
   const cardHoverSx = {
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
     "&:hover": {
@@ -72,19 +66,13 @@ export default function Home() {
           >
             Laporkan sampah di sekitarmu, bantu bersihkan bersama komunitas
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            component={RouterLink}
-            to="/lapor"
-            sx={{ ...btnHoverSx }}
-          >
+          <ModernButton component={RouterLink} to="/lapor">
             Laporkan Sekarang
-          </Button>
+          </ModernButton>
         </Container>
       </Box>
 
-      {/* Feature Section */}
+      {/* fitur  */}
       <Box
         component="section"
         sx={{ py: 8, backgroundColor: "background.paper" }}

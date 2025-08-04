@@ -1,9 +1,8 @@
-// import React, { useState, useEffect } from "react";
 import { Fab, Zoom, useScrollTrigger } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 export default function BackToTop() {
-  // Trigger muncul saat scroll melebihi 300px
+  // trigger muncul saat scroll melebihi 300px
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 300,
@@ -27,7 +26,7 @@ export default function BackToTop() {
           position: "fixed",
           bottom: 24,
           right: 24,
-          zIndex: 1300, // agar selalu di atas elemen lain
+          zIndex: 1300, // agar selalu di atas elemen lain ege
         }}
       >
         <KeyboardArrowUpIcon />
